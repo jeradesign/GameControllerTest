@@ -21,6 +21,7 @@
 		42567E371844209D001EE326 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42567E191844209D001EE326 /* UIKit.framework */; };
 		42567E3F1844209D001EE326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42567E3D1844209D001EE326 /* InfoPlist.strings */; };
 		42567E411844209D001EE326 /* GameControllerTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42567E401844209D001EE326 /* GameControllerTestTests.m */; };
+		426A9A68184438D700347801 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A9A67184438D700347801 /* GameController.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		42567E3C1844209D001EE326 /* GameControllerTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GameControllerTestTests-Info.plist"; sourceTree = "<group>"; };
 		42567E3E1844209D001EE326 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42567E401844209D001EE326 /* GameControllerTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameControllerTestTests.m; sourceTree = "<group>"; };
+		426A9A67184438D700347801 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				426A9A68184438D700347801 /* GameController.framework in Frameworks */,
 				42567E181844209D001EE326 /* CoreGraphics.framework in Frameworks */,
 				42567E1A1844209D001EE326 /* UIKit.framework in Frameworks */,
 				42567E161844209D001EE326 /* Foundation.framework in Frameworks */,
@@ -101,6 +104,7 @@
 		42567E141844209D001EE326 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				426A9A67184438D700347801 /* GameController.framework */,
 				42567E151844209D001EE326 /* Foundation.framework */,
 				42567E171844209D001EE326 /* CoreGraphics.framework */,
 				42567E191844209D001EE326 /* UIKit.framework */,
@@ -460,6 +464,7 @@
 				42567E461844209D001EE326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		42567E471844209D001EE326 /* Build configuration list for PBXNativeTarget "GameControllerTestTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +473,7 @@
 				42567E491844209D001EE326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
