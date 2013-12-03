@@ -22,6 +22,7 @@
 		42567E3F1844209D001EE326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42567E3D1844209D001EE326 /* InfoPlist.strings */; };
 		42567E411844209D001EE326 /* GameControllerTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42567E401844209D001EE326 /* GameControllerTestTests.m */; };
 		426A9A68184438D700347801 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A9A67184438D700347801 /* GameController.framework */; };
+		42D03024184D68160078D4B8 /* JoystickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D03023184D68160078D4B8 /* JoystickView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		42567E3E1844209D001EE326 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42567E401844209D001EE326 /* GameControllerTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameControllerTestTests.m; sourceTree = "<group>"; };
 		426A9A67184438D700347801 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		42D03022184D68160078D4B8 /* JoystickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickView.h; sourceTree = "<group>"; };
+		42D03023184D68160078D4B8 /* JoystickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoystickView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,8 @@
 				42567E271844209D001EE326 /* Main.storyboard */,
 				42567E2A1844209D001EE326 /* ViewController.h */,
 				42567E2B1844209D001EE326 /* ViewController.m */,
+				42D03022184D68160078D4B8 /* JoystickView.h */,
+				42D03023184D68160078D4B8 /* JoystickView.m */,
 				42567E2D1844209D001EE326 /* Images.xcassets */,
 				42567E1C1844209D001EE326 /* Supporting Files */,
 			);
@@ -253,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42D03024184D68160078D4B8 /* JoystickView.m in Sources */,
 				42567E2C1844209D001EE326 /* ViewController.m in Sources */,
 				42567E261844209D001EE326 /* AppDelegate.m in Sources */,
 				42567E221844209D001EE326 /* main.m in Sources */,

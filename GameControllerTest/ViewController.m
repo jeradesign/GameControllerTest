@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <GameController/GameController.h>
+#import "JoystickView.h"
 
 @interface ViewController () {
     GCController *_controller;
@@ -21,6 +22,10 @@
     __weak IBOutlet UILabel *_bButton;
     __weak IBOutlet UILabel *_xButton;
     __weak IBOutlet UILabel *_yButton;
+    __weak IBOutlet UILabel *_leftTrigger;
+    __weak IBOutlet UILabel *_rightTrigger;
+    __weak IBOutlet JoystickView *_leftJoystick;
+    __weak IBOutlet JoystickView *_rightJoystick;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -102,6 +107,13 @@
     [self updateView:_bButton forButton:_controller.gamepad.buttonB];
     [self updateView:_xButton forButton:_controller.gamepad.buttonX];
     [self updateView:_yButton forButton:_controller.gamepad.buttonY];
+    if (_controller.extendedGamepad == nil) {
+        return;
+    }
+    [self updateView:_leftTrigger forButton:_controller.extendedGamepad.leftTrigger];
+    [self updateView:_rightTrigger forButton:_controller.extendedGamepad.rightTrigger];
+    [self updateView:_leftJoystick forJoystick:_controller.extendedGamepad.leftThumbstick];
+    [self updateView:_rightJoystick forJoystick:_controller.extendedGamepad.rightThumbstick];
 }
 
 - (void)updateView:(UIView*)view forButton:(GCControllerButtonInput*)button
@@ -111,6 +123,12 @@
     } else {
         view.backgroundColor = UIColor.whiteColor;
     }
+}
+
+- (void)updateView:(JoystickView*)view forJoystick:(GCControllerDirectionPad*)joystick
+{
+    view.xAxis = joystick.xAxis.value;
+    view.yAxis = joystick.yAxis.value;
 }
 
 - (void)controllerDisconnected:(NSNotification*)notification
