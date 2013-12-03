@@ -11,8 +11,16 @@
 
 @interface ViewController () {
     GCController *_controller;
-    GCGamepad *_gamepad;
-    GCExtendedGamepad *_extendedGamepad;
+    __weak IBOutlet UILabel *_leftShoulder;
+    __weak IBOutlet UILabel *_rightShoulder;
+    __weak IBOutlet UILabel *_dpadUp;
+    __weak IBOutlet UILabel *_dpadDown;
+    __weak IBOutlet UILabel *_dpadLeft;
+    __weak IBOutlet UILabel *_dpadRight;
+    __weak IBOutlet UILabel *_aButton;
+    __weak IBOutlet UILabel *_bButton;
+    __weak IBOutlet UILabel *_xButton;
+    __weak IBOutlet UILabel *_yButton;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -66,12 +74,44 @@
     if (_controller.attachedToDevice) {
         [self log:@"attachedToDevice"];
     }
-    _controller.gamepad.leftShoulder.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
-        [self log:[NSString stringWithFormat:@"leftShoulder pressed = %d, value = %f",
-                   pressed, value]];
-    };
+
+    __block ViewController *blockSelf = self;
+
+    if (_controller.extendedGamepad) {
+        _controller.extendedGamepad.valueChangedHandler =
+        ^(GCExtendedGamepad *gamepad, GCControllerElement *element) {
+            [blockSelf updateControlValues];
+        };
+    } else {
+        _controller.gamepad.valueChangedHandler =
+        ^(GCGamepad *gamepad, GCControllerElement *element) {
+            [blockSelf updateControlValues];
+        };
+    }
 }
 
+- (void)updateControlValues
+{
+    [self updateView:_leftShoulder forButton:_controller.gamepad.leftShoulder];
+    [self updateView:_rightShoulder forButton:_controller.gamepad.rightShoulder];
+    [self updateView:_dpadUp forButton:_controller.gamepad.dpad.up];
+    [self updateView:_dpadDown forButton:_controller.gamepad.dpad.down];
+    [self updateView:_dpadLeft forButton:_controller.gamepad.dpad.left];
+    [self updateView:_dpadRight forButton:_controller.gamepad.dpad.right];
+    [self updateView:_aButton forButton:_controller.gamepad.buttonA];
+    [self updateView:_bButton forButton:_controller.gamepad.buttonB];
+    [self updateView:_xButton forButton:_controller.gamepad.buttonX];
+    [self updateView:_yButton forButton:_controller.gamepad.buttonY];
+}
+
+- (void)updateView:(UIView*)view forButton:(GCControllerButtonInput*)button
+{
+    if (button.isPressed) {
+        view.backgroundColor = UIColor.grayColor;
+    } else {
+        view.backgroundColor = UIColor.whiteColor;
+    }
+}
 
 - (void)controllerDisconnected:(NSNotification*)notification
 {
