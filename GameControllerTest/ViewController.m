@@ -45,6 +45,9 @@
                                              selector:@selector(controllerDisconnected:)
                                                  name:GCControllerDidDisconnectNotification
                                                object:nil];
+    [GCController startWirelessControllerDiscoveryWithCompletionHandler:^{
+        [self log:@"Done discovering wireless controllers."];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
