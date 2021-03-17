@@ -24,6 +24,14 @@
     __weak IBOutlet UILabel *_yButton;
     __weak IBOutlet UILabel *_leftTrigger;
     __weak IBOutlet UILabel *_rightTrigger;
+    __weak IBOutlet UIImageView *_leftShoulderIcon;
+    __weak IBOutlet UIImageView *_rightShoulderIcon;
+    __weak IBOutlet UIImageView *_aButtonIcon;
+    __weak IBOutlet UIImageView *_bButtonIcon;
+    __weak IBOutlet UIImageView *_xButtonIcon;
+    __weak IBOutlet UIImageView *_yButtonIcon;
+    __weak IBOutlet UIImageView *_leftTriggerIcon;
+    __weak IBOutlet UIImageView *_rightTriggerIcon;
     __weak IBOutlet JoystickView *_leftJoystick;
     __weak IBOutlet JoystickView *_rightJoystick;
 }
@@ -100,32 +108,67 @@
 
 - (void)updateControlValues
 {
-    [self updateView:_leftShoulder forButton:_controller.gamepad.leftShoulder];
-    [self updateView:_rightShoulder forButton:_controller.gamepad.rightShoulder];
-    [self updateView:_dpadUp forButton:_controller.gamepad.dpad.up];
-    [self updateView:_dpadDown forButton:_controller.gamepad.dpad.down];
-    [self updateView:_dpadLeft forButton:_controller.gamepad.dpad.left];
-    [self updateView:_dpadRight forButton:_controller.gamepad.dpad.right];
-    [self updateView:_aButton forButton:_controller.gamepad.buttonA];
-    [self updateView:_bButton forButton:_controller.gamepad.buttonB];
-    [self updateView:_xButton forButton:_controller.gamepad.buttonX];
-    [self updateView:_yButton forButton:_controller.gamepad.buttonY];
+    [self updateView:_leftShoulder forButton:_controller.gamepad.leftShoulder andView:_leftShoulderIcon];
+    [self updateView:_rightShoulder forButton:_controller.gamepad.rightShoulder andView:_rightShoulderIcon];
+    [self updateView:_dpadUp forButton:_controller.gamepad.dpad.up andView:nil];
+    [self updateView:_dpadDown forButton:_controller.gamepad.dpad.down andView:nil];
+    [self updateView:_dpadLeft forButton:_controller.gamepad.dpad.left andView:nil];
+    [self updateView:_dpadRight forButton:_controller.gamepad.dpad.right andView:nil];
+    [self updateView:_aButton forButton:_controller.gamepad.buttonA andView:_aButtonIcon];
+    [self updateView:_bButton forButton:_controller.gamepad.buttonB andView:_bButtonIcon];
+    [self updateView:_xButton forButton:_controller.gamepad.buttonX andView:_xButtonIcon];
+    [self updateView:_yButton forButton:_controller.gamepad.buttonY andView:_yButtonIcon];
     if (_controller.extendedGamepad == nil) {
         return;
     }
-    [self updateView:_leftTrigger forButton:_controller.extendedGamepad.leftTrigger];
-    [self updateView:_rightTrigger forButton:_controller.extendedGamepad.rightTrigger];
+    [self updateView:_leftTrigger forButton:_controller.extendedGamepad.leftTrigger andView:_leftTriggerIcon];
+    [self updateView:_rightTrigger forButton:_controller.extendedGamepad.rightTrigger andView:_rightTriggerIcon];
     [self updateView:_leftJoystick forJoystick:_controller.extendedGamepad.leftThumbstick];
     [self updateView:_rightJoystick forJoystick:_controller.extendedGamepad.rightThumbstick];
 }
 
-- (void)updateView:(UIView*)view forButton:(GCControllerButtonInput*)button
+- (void)updateView:(UIView*)view forButton:(GCControllerButtonInput*)button andView:(UIImageView*)image_view
 {
     if (button.isPressed) {
         view.backgroundColor = UIColor.grayColor;
+        image_view.backgroundColor = UIColor.grayColor;
     } else {
         view.backgroundColor = UIColor.whiteColor;
+        image_view.backgroundColor = UIColor.whiteColor;
     }
+
+
+    if (image_view != nil)
+    {
+        // It's naive to query this every update, but otherwise we need to
+        // listen for focus loss/gain messages to ensure we refresh the
+        // button icons. For this demo app, this is fine.
+        GCControllerButtonInput *input = button;
+        NSString *name = input.sfSymbolsName;
+        if (name == nil) {
+            name = input.unmappedSfSymbolsName;
+        }
+
+        if (name == nil) {
+            name = @"questionmark.square";
+        }
+
+        if (@available(iOS 13.0, *)) {
+            //~ NSLog(@"sfSymbolsName: %@", name);
+            int height = 150;
+            UIImageSymbolConfiguration *config = [UIImageSymbolConfiguration
+                configurationWithPointSize:(CGFloat)height];
+            UIImage *vanilla = [UIImage
+                systemImageNamed:name
+                withConfiguration:config];
+
+            image_view.image = vanilla;
+
+        } else {
+            [self log:@"UIImage.systemImageNamed API not available."];
+        }
+    }
+
 }
 
 - (void)updateView:(JoystickView*)view forJoystick:(GCControllerDirectionPad*)joystick
